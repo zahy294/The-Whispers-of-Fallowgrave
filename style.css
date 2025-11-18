@@ -1,0 +1,414 @@
+/* General reset-ish */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  background: #040406;
+  color: #f4f0e8;
+}
+
+/* Game container */
+#game-root {
+  position: relative;
+  min-height: 100vh;
+  display: block; /* stops flexbox vertical centering */
+  padding-top: 50vh; /* adjust this number for how low you want it */
+
+}
+
+
+
+/* Background layer for scene-specific visuals */
+#background-layer {
+  position: fixed;
+  inset: 0;
+  background-color: #020108;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* NO blend mode here */
+  z-index: 0;
+}
+
+/* Title background: ONLY the image, no gradient for now */
+.bg-title {
+  background-image:
+    url("images/title.jpg"),
+    radial-gradient(circle at center, rgba(21,18,28,0.6) 0, rgba(3,1,6,0.95) 70%);
+    
+}
+
+
+.bg-coach_arrival {
+  background-image:
+    url("images/coach_arrival.png"),
+    radial-gradient(circle at top, #333846 0, #040109 65%);
+    
+}
+
+.bg-inn_exterior {
+  background-image:
+    url("images/inn_exterior.png"),
+    radial-gradient(circle at bottom, #262630 0, #020106 60%);
+}
+
+.bg-inn_lobby {
+  background-image:
+    url("images/inn_lobby.png"),
+    radial-gradient(circle at center, #2c1f1a 0, #050001 65%);
+}
+
+.bg-inn_room {
+  background-image:
+    url("images/inn_room.png"),
+    radial-gradient(circle at center, #2a2332 0, #020108 70%);
+}
+
+.bg-street_blackwood {
+  background-image:
+    url("images/street_blackwood.png"),
+    radial-gradient(circle at top, #252732 0, #020108 65%);
+}
+
+.bg-blackwood_gate {
+  background-image:
+    url("images/blackwood_gate.png"),
+    radial-gradient(circle at bottom, #303039 0, #020107 65%);
+}
+
+.bg-blackwood_foyer {
+  background-image:
+    url("images/blackwood_foyer.png"),
+    radial-gradient(circle at center, #251c1a 0, #050103 70%);
+}
+
+.bg-miriam_room {
+  background-image:
+    url("images/miriam_room.png"),
+    radial-gradient(circle at center, #242132 0, #040109 70%);
+}
+
+.bg-mines_chamber {
+  background-image:
+    url("images/mines_chamber.jpg"),
+    radial-gradient(circle at center, #151019 0, #020005 75%);
+}
+
+.bg-ward_cell {
+  background-image:
+    url("images/ward_cell.jpg"),
+    radial-gradient(circle at center, #1f2227 0, #050608 70%);
+}
+
+/* === Act III: Mines backgrounds === */
+.bg-mines_approach {
+  background: radial-gradient(circle at top, #181d24 0, #010308 70%);
+}
+
+.bg-mines_entrance {
+  background: radial-gradient(circle at bottom, #11151b 0, #010206 70%);
+}
+
+.bg-mines_tunnel {
+  background: radial-gradient(circle at center, #101820 0, #020207 75%);
+}
+
+
+/* === Act V: Ward backgrounds === */
+.bg-ward_hallway {
+  background: radial-gradient(circle at center, #1b2229 0, #05070b 70%);
+}
+
+
+.bg-alley_symbol {
+  background: radial-gradient(circle at center, #1c1f26 0, #040309 70%);
+}
+/* When sanity is low */
+.low-sanity {
+  filter: blur(1px) saturate(1.2);
+}
+#background-layer::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+/* Game frame */
+#game-frame {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 100%);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* NEW translucent glass effect */
+  background: rgba(10, 8, 14, 0.65); /* transparent dark */
+  backdrop-filter: blur(9px) saturate(120%);
+  -webkit-backdrop-filter: blur(9px) saturate(120%);
+
+  /* Softer shadow */
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  
+  padding: 1.5rem 1.8rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 auto;
+}
+#game-frame * {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Header */
+#game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.8rem;
+}
+
+.title-block h1 {
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-top: 0.2rem;
+}
+
+.stats-block {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.stat .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.sanity-bar {
+  width: 160px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin: 0.2rem 0;
+}
+
+#sanity-fill {
+  height: 100%;
+  width: 80%;
+  background: linear-gradient(90deg, #63ffb5, #ffdf6a, #ff4d4d);
+  transition: width 0.3s ease;
+}
+
+#sanity-value {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Main layout */
+#game-main {
+  display: grid;
+  grid-template-columns: 2.3fr 1.4fr 1.1fr;
+  gap: 1rem;
+  margin-top: 0.2rem;
+}
+
+/* Scene panel */
+#scene-panel {
+  padding-right: 0.8rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+#scene-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  margin-bottom: 0.1rem;
+}
+
+#scene-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+#scene-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-height: 340px;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+}
+
+#scene-text::-webkit-scrollbar {
+  width: 4px;
+}
+#scene-text::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+}
+
+/* Choice panel */
+#choice-panel {
+  padding: 0 0.8rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+#choice-panel h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.75;
+  margin-bottom: 0.4rem;
+}
+
+#choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Choice buttons */
+.choice-btn {
+  width: 100%;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.85rem;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.08s ease, border-color 0.15s ease;
+}
+
+.choice-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.choice-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* HUD panel */
+#hud-panel {
+  font-size: 0.8rem;
+}
+
+.hud-section + .hud-section {
+  margin-top: 0.7rem;
+}
+
+.hud-section h3 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.75;
+  margin-bottom: 0.25rem;
+}
+
+#clue-list,
+#inventory-list {
+  list-style: none;
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+}
+
+#clue-list li,
+#inventory-list li {
+  margin-bottom: 0.15rem;
+  opacity: 0.85;
+}
+
+/* Footer */
+#game-footer {
+  margin-top: 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#restart-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#restart-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Sanity glitch text effect (very subtle class) */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.glitch-text::before {
+  transform: translate(1px, -1px);
+}
+
+.glitch-text::after {
+  transform: translate(-1px, 1px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  #game-main {
+    grid-template-columns: 1fr;
+  }
+  #scene-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  #choice-panel {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    margin-bottom: 0.5rem;
+  }
+}

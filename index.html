@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Whispers of Fallowgrave</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  
+  <div id="game-root">
+    <div id="background-layer"></div>
+
+    <div id="game-frame">
+      <header id="game-header">
+        <div class="title-block">
+          <h1>The Whispers of Fallowgrave</h1>
+          <p class="subtitle">A psychological horror detective story</p>
+        </div>
+        <div class="stats-block">
+          <div class="stat">
+            <span class="label">Sanity</span>
+            <div class="sanity-bar">
+              <div id="sanity-fill"></div>
+            </div>
+            <span id="sanity-value"></span>
+          </div>
+        </div>
+      </header>
+
+      <main id="game-main">
+        <section id="scene-panel">
+          <div id="scene-tag"></div>
+          <h2 id="scene-title"></h2>
+          <div id="scene-text"></div>
+        </section>
+
+        <section id="choice-panel">
+          <h3>Choices</h3>
+          <div id="choices"></div>
+        </section>
+
+        <aside id="hud-panel">
+          <div class="hud-section">
+            <h3>Clues</h3>
+            <ul id="clue-list"></ul>
+          </div>
+          <div class="hud-section">
+            <h3>Inventory</h3>
+            <ul id="inventory-list"></ul>
+          </div>
+        </aside>
+      </main>
+
+      <footer id="game-footer">
+        <button id="restart-btn" type="button">Restart Investigation</button>
+      </footer>
+    </div>
+  </div>
+  <audio id="sfx-click" src="audio/click.mp3" preload="auto"></audio>
+  <audio id="sfx-ominous" src="audio/ominous_hit.mp3" preload="auto"></audio>
+  <audio id="bg-ambience" src="audio/bg_ambience.mp3" preload="auto" loop></audio>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
